@@ -1,0 +1,62 @@
+{{define "todolist"}}
+
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Главная страница</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://getbootstrap.com/docs/4.5/examples/cover/cover.css">
+    </head>
+    <body class="vh-100" style="background-color: #eee;">
+        <div class="card-body p-4">
+            <h4 class="text-center my-3 pb-3">To Do App</h4>
+                  <div class="card-body">
+                    <form action="/save_item" method="POST">
+                    <div class="d-flex flex-row align-items-center">
+                      <input type="text" name ="item" id="item" class="form-control"  placeholder="Add new...">
+                      <button type="submit" class="btn btn-primary">Add</button>
+                    </div>
+                  </form>
+                  </div>
+            <table class="table mb-4">
+              <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Todo item</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {{range .}}
+                <tr>
+                  <th scope="row">{{.Id}}</th>
+                  {{if not .Status}}
+                  <td>{{.Item}}</td>
+                  <td>In progress</td>
+                  {{else }}
+                  <td><s>{{.Item}}</s></td>
+                  <td>Finished</td>
+                  {{end}}
+                  <td>
+                      <form  method="POST">
+                        {{if not .Status}}
+                      <button formaction="/post/{{.Id}}/done_item" class="btn btn-success" >Done  </button>
+                      {{else}}
+                      <button formaction="/post/{{.Id}}/remove_item" class="btn btn-danger" >Delite</button>
+                        {{end}}
+                    </form>                 
+                  </td>
+                </tr> 
+                {{else}}
+                <p class ="lead">Статей нет</p>
+                {{end}}
+              </tbody>
+            </table>
+          </div>
+    </html>
+    {{end}}
