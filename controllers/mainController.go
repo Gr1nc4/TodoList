@@ -47,12 +47,26 @@ func Todolist(w http.ResponseWriter, r *http.Request) {
 	}
 	var reversItemes = []models.TodoThings{}
 	for i := len(items) - 1; i >= 0; i-- {
-
 		reversItemes = append(reversItemes, items[i])
 	}
 
-	t.ExecuteTemplate(w, "todolist", reversItemes)
+	var completeReverse = []models.TodoThings{}
+	t.ExecuteTemplate(w, "todolist", sortItemsByStatus(reversItemes, completeReverse))
+}
 
+func sortItemsByStatus(inArray, outArray []models.TodoThings) *[]models.TodoThings {
+	for i := 0; i < len(inArray); i++ {
+		if !inArray[i].Status {
+			outArray = append(outArray, inArray[i])
+		}
+	}
+
+	for i := 0; i < len(inArray); i++ {
+		if inArray[i].Status {
+			outArray = append(outArray, inArray[i])
+		}
+	}
+	return &outArray
 }
 
 func Save_item(w http.ResponseWriter, r *http.Request) {
