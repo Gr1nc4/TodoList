@@ -35,13 +35,13 @@
                 {{range .}}
                 <tr>
                   <th scope="row">{{.Id}}</th>
-                  {{if not .Status}}
+                  <!-- {{if not .Status}} -->
                   <td>{{.Item}}</td>
                   <td>In progress</td>
-                  {{else }}
+                  <!-- {{else }} -->
                   <td><s>{{.Item}}</s></td>
                   <td>Finished</td>
-                  {{end}}
+                  <!-- {{end}} -->
                   <td>
                       <form  method="POST">
                         {{if not .Status}}
