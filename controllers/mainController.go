@@ -85,7 +85,7 @@ func Remove_item(w http.ResponseWriter, r *http.Request) {
 	status := r.FormValue("status")
 	vars := mux.Vars(r)
 	if status == "Не выполнена" {
-		fmt.Print("нельзя удалят ьсука")
+		fmt.Print("нельзя удалять")
 	}
 	del := dbConnect(fmt.Sprintf("DELETE FROM `todo_item` WHERE `id` = '%s'", vars["id"]))
 
